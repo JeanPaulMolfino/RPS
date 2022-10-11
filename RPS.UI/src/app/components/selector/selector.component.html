@@ -1,0 +1,47 @@
+<div class="d-flex flex-column min-vh-100 min-vw-100">
+  <div class="d-flex flex-grow-1 justify-content-center align-items-center">
+    <div class="d-flex justify-content-center shadow p-3 mb-5 bg-body rounded">
+      <div class="col rounded">
+        <h1>Round {{ rounds }}</h1>
+        <h2 class="title">{{ playersTurnName }}</h2>
+        <form [formGroup]="partida" (ngSubmit)="submit(partida)">
+          <h5>Select move:</h5>
+          <select class="custom-select" #tablero (change)="onSelected()">
+            <option
+              *ngFor="let movement of movements"
+              value="{{ movement.name }}"
+            >
+              {{ movement.name }} beats {{ movement.kills }}
+            </option>
+          </select>
+          <button
+            type="submit"
+            class="btn btn-primary mt-2"
+            style="width: 100%"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+      <div class="col rounded" *ngIf="results.length > 0">
+        <h1 class="title">Score table</h1>
+        <div class="container">
+          <div class="row">
+            <h2 class="col">Round</h2>
+            <h2 class="col">Result</h2>
+          </div>
+          <div class="row" *ngFor="let result of results">
+            <div class="col">{{ result.round }}</div>
+            <div class="col" *ngIf="result.winner === 0">
+              {{ playerOneName }}
+            </div>
+            <div class="col" *ngIf="result.winner === 1">
+              {{ playerTwoName }}
+            </div>
+            <div class="col" *ngIf="result.winner === -1">Draw</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

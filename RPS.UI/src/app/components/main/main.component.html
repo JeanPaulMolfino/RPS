@@ -1,0 +1,63 @@
+<div
+  class="position-absolute top-50 start-50 translate-middle"
+  style="width: 30rem"
+>
+  <div class="container shadow p-3 mb-5 bg-body rounded">
+    <h1 class="title">Enter player's names</h1>
+    <form [formGroup]="partida" (ngSubmit)="submit(partida)">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-default"
+          >Player One</span
+        >
+        <input
+          required
+          type="text"
+          class="form-control"
+          aria-label="Sizing example input"
+          aria-describedby="inputGroup-sizing-default"
+          formControlName="playerOneName"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-default"
+          >Player Two</span
+        >
+        <input
+          required
+          type="text"
+          class="form-control"
+          aria-label="Sizing example input"
+          aria-describedby="inputGroup-sizing-default"
+          formControlName="playerTwoName"
+        />
+      </div>
+      <div
+        class="cross-validation-error-message alert alert-danger"
+        *ngIf="
+          !partida.controls.playerOneName.value &&
+          partida.controls.playerOneName.touched
+        "
+      >
+        Insert your name Player One.
+      </div>
+      <div
+        class="cross-validation-error-message alert alert-danger"
+        *ngIf="
+          !partida.controls.playerTwoName.value &&
+          partida.controls.playerTwoName.touched
+        "
+      >
+        Insert your name Player Two.
+      </div>
+      <div
+        *ngIf="partida.errors?.['thesame'] && (partida.touched || partida.dirty)"
+        class="cross-validation-error-message alert alert-danger"
+      >
+        You two have the same name?<br />C'mon', too much coincidence.
+      </div>
+      <button type="submit" class="btn btn-primary" style="width: 100%">
+        Start game
+      </button>
+    </form>
+  </div>
+</div>
